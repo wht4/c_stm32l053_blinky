@@ -3,6 +3,12 @@
  *******************************************************************************
  *
  *  @brief      Module for handling the attached user led
+ *              <p>
+ *              There are two user led's attached to the stm32l053:
+ *              <ul>
+ *                  <li> LED_GREEN: I/O PB4
+ *                  <li> LED_RED: I/O PA5
+ *              </ul>
  *
  *  @author     wht4
  *

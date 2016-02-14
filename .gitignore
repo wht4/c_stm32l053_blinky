@@ -5,4 +5,4 @@ Blinky.elf.launch
 .settings
 .project
 .cproject
-
+stm32_flash.ld
