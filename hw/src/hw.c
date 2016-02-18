@@ -23,6 +23,7 @@
 
 #include "led.h"
 #include "systick.h"
+#include "btn.h"
 
 /****** Macros ****************************************************************/
 
@@ -42,5 +43,6 @@ hw_init(void) {
 
 	systick_init(2000);
 	led_init();
+	btn_init();
 }
 

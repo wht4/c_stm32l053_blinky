@@ -65,12 +65,36 @@ led_init(void) {
 
 
 /*******************************************************************************
+ *  function :    led_set
+ ******************************************************************************/
+void
+led_set(Led_t tLed) {
+
+	if (tLed < LED_QUANTITY) {
+		tUserLedPort[tLed]->BSRR |= (0x01UL << u32UserLedPin[tLed]);
+	}
+}
+
+
+/*******************************************************************************
+ *  function :    led_clear
+ ******************************************************************************/
+void
+led_clear(Led_t tLed) {
+
+	if (tLed < LED_QUANTITY) {
+		tUserLedPort[tLed]->BSRR |= (0x10000UL << u32UserLedPin[tLed]);
+	}
+}
+
+
+/*******************************************************************************
  *  function :    led_toogle
  ******************************************************************************/
 void
 led_toogle(Led_t tLed) {
 
 	if (tLed < LED_QUANTITY) {
-		tUserLedPort[tLed]->ODR ^= (1 << u32UserLedPin[tLed]);
+		tUserLedPort[tLed]->ODR ^= (1UL << u32UserLedPin[tLed]);
 	}
 }

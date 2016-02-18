@@ -20,7 +20,10 @@
  *
  ******************************************************************************/
 /*
- *  function    .
+ *  function    btn_init
+ *              btn_registerCallback
+ *              btn_isPressed
+ *              btn_isr
  *
  ******************************************************************************/
 
@@ -52,6 +55,21 @@ typedef enum _BtnHandlingCtx_t {
 typedef void (*pfBtnHandlingFct) (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx);
 
 /****** Function prototypes ****************************************************/
+extern void
+btn_init(void);
+
+extern void
+btn_registerCallback(Btn_t tBtn,
+		             BtnHandlingCtx_t tBtnHandlingCtx,
+		             pfBtnHandlingFct pfCallback);
+
+
+extern void
+btn_isPressed(Btn_t tBtn);
+
+extern void
+btn_isr(Btn_t tBtn);
+
 
 /****** Data ******************************************************************/
 

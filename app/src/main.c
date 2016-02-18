@@ -24,29 +24,45 @@
 #include "hw.h"
 #include "led.h"
 #include "systick.h"
+#include "btn.h"
 
 /****** Macros ****************************************************************/
 
 /****** Data types ************************************************************/
 
 /****** Function prototypes ****************************************************/
+static void
+BtnCallback (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx);
 
 /****** Data ******************************************************************/
 
 /****** Implementation ********************************************************/
 
 /*******************************************************************************
- *  function :    template_simpleFct
+ *  function :    main
  ******************************************************************************/
 int main(void) {
 
 	hw_init();
+	btn_registerCallback(BTN_1, BTN_HANDLING_CTX_ISR, BtnCallback);
 
 	while (1) {
 
-	    systick_delayMs(1000);
-	    led_toogle(LED_GREEN);
+		systick_delayMs(100);
 	}
 
 	return 0;
+}
+
+
+/*******************************************************************************
+ *  function :    BtnCallback
+ ******************************************************************************/
+static void
+BtnCallback (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx) {
+
+	(void) tBtn;
+	(void) tBtnHandlingCtx;
+
+	led_toogle(LED_GREEN);
 }

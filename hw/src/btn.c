@@ -64,6 +64,24 @@ static BtnHandlingCtx_t tHandlingCtx[BTN_QUANTITY] = {
 void
 btn_init(void) {
 
+	/* Enable the peripheral clock of GPIOA */
+	RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
+
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+	/* Select output mode (00) on GPIOA pin 5 */
+	GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODE0));
+
+	/* Line 0 is not masked */
+	EXTI->IMR |= EXTI_IMR_IM0;
+
+	/* Set interrupt for rising edge */
+	EXTI->RTSR |= EXTI_RTSR_TR0;
+
+	/* Enable interrupt for EXTI Line 0 and 1 */
+	NVIC_EnableIRQ(EXTI0_1_IRQn);
+
+	NVIC_SetPriority(EXTI0_1_IRQn, (1<<__NVIC_PRIO_BITS) - 1);
 }
 
 

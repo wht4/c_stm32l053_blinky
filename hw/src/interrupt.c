@@ -22,6 +22,7 @@
 #include "stm32l0xx.h"
 
 #include "systick.h"
+#include "btn.h"
 
 /****** Macros ****************************************************************/
 
@@ -40,4 +41,19 @@ void
 SysTick_Handler(void) {
 
 	systick_irq();
+}
+
+
+/*******************************************************************************
+ *  function :    EXTI0_1_IRQHandler
+ ******************************************************************************/
+void
+EXTI0_1_IRQHandler(void) {
+
+	/* Is there an interrupt on line 0 */
+	if((EXTI->PR & EXTI_PR_PR0) != 0) {
+
+		EXTI->PR |= EXTI_PR_PR0;
+		btn_isr(BTN_1);
+	}
 }

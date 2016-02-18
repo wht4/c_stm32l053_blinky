@@ -17,6 +17,8 @@
  ******************************************************************************/
 /*
  *  function    led_init
+ *              led_set
+ *              led_clear
  *              led_toogle
  *
  ******************************************************************************/
@@ -42,6 +44,12 @@ typedef enum _Led_t {
 /****** Function prototypes ****************************************************/
 extern void
 led_init(void);
+
+extern void
+led_set(Led_t tLed);
+
+extern void
+led_clear(Led_t tLed);
 
 extern void
 led_toogle(Led_t tLed);
