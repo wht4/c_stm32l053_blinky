@@ -42,6 +42,9 @@ void
 hw_init(void) {
 
 	systick_init(2000);
+
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
 	led_init();
 	btn_init();
 }

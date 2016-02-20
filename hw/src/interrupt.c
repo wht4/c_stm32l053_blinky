@@ -13,6 +13,11 @@
 /*
  *  functions  global:
  *              SysTick_Handler
+ *              EXTI0_1_IRQHandler
+ *              NMI_Handler
+ *              HardFault_Handler
+ *              SVC_Handler
+ *              PendSV_Handler
  *  functions  local:
  *              .
  *
@@ -57,3 +62,46 @@ EXTI0_1_IRQHandler(void) {
 		btn_isr(BTN_1);
 	}
 }
+
+
+/*******************************************************************************
+ *  function :    NMI_Handler
+ ******************************************************************************/
+void
+NMI_Handler(void) {
+
+	/* Default handler */
+}
+
+
+/*******************************************************************************
+ *  function :    HardFault_Handler
+ ******************************************************************************/
+void
+HardFault_Handler(void) {
+
+  /* Go to infinite loop when Hard Fault exception occurs */
+  while (1) {
+  }
+}
+
+
+/*******************************************************************************
+ *  function :    SVC_Handler
+ ******************************************************************************/
+void
+SVC_Handler(void) {
+
+	/* Default handler */
+}
+
+
+/*******************************************************************************
+ *  function :    PendSV_Handler
+ ******************************************************************************/
+void
+PendSV_Handler(void) {
+
+	/* Default handler */
+}
+

@@ -11,6 +11,11 @@
  ******************************************************************************/
 /*
  *  function    SysTick_Handler
+ *              EXTI0_1_IRQHandler
+ *              NMI_Handler
+ *              HardFault_Handler
+ *              SVC_Handler
+ *              PendSV_Handler
  *
  ******************************************************************************/
 
@@ -27,6 +32,21 @@ extern "C" {
 /****** Function prototypes ****************************************************/
 extern void
 SysTick_Handler(void);
+
+extern void
+EXTI0_1_IRQHandler(void);
+
+extern void
+NMI_Handler(void);
+
+extern void
+HardFault_Handler(void);
+
+extern void
+SVC_Handler(void);
+
+extern void
+PendSV_Handler(void);
 
 /****** Data ******************************************************************/
 

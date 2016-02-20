@@ -27,6 +27,7 @@
 
 /****** Header-Files **********************************************************/
 #include "led.h"
+#include "gpio.h"
 
 /****** Macros ****************************************************************/
 
@@ -53,14 +54,19 @@ uint32_t u32UserLedPin[LED_QUANTITY] = {
 void
 led_init(void) {
 
+	GpioInit_t tGpioInit = {GPIO_MODE_OUTPUT,
+				GPIO_OUTPUT_PUSH_PULL,
+				GPIO_SPEED_MEDIUM,
+				GPIO_PULL_NON};
+
     /* Enable the peripheral clock of GPIOA and GPIOB */
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN | RCC_IOPENR_GPIOBEN;
 
 	/* Select output mode (01) on GPIOA pin 5 */
-	GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODE5)) | (GPIO_MODER_MODE5_0);
+	gpio_init(GPIOA, 5, &tGpioInit);
 
 	/* Select output mode (01) on GPIOB pin 4 */
-	GPIOB->MODER = (GPIOB->MODER & ~(GPIO_MODER_MODE4)) | (GPIO_MODER_MODE4_0);
+	gpio_init(GPIOB, 4, &tGpioInit);
 }
 
 

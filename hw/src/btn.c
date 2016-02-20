@@ -36,6 +36,7 @@
 #include "stm32l0xx.h"
 
 #include "btn.h"
+#include "gpio.h"
 
 /****** Macros ****************************************************************/
 
@@ -64,13 +65,18 @@ static BtnHandlingCtx_t tHandlingCtx[BTN_QUANTITY] = {
 void
 btn_init(void) {
 
+	GpioInit_t tGpioInit = {GPIO_MODE_INPUT,
+			GPIO_OUTPUT_PUSH_PULL,
+			GPIO_SPEED_MEDIUM,
+			GPIO_PULL_NON};
+
 	/* Enable the peripheral clock of GPIOA */
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
 
-	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+	/* configure GPIOA pin 0 as btn */
+	//GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODE0));
+	gpio_init(GPIOA, 0, &tGpioInit);
 
-	/* Select output mode (00) on GPIOA pin 5 */
-	GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODE0));
 
 	/* Line 0 is not masked */
 	EXTI->IMR |= EXTI_IMR_IM0;

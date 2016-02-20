@@ -48,7 +48,8 @@ int main(void) {
 
 	while (1) {
 
-		systick_delayMs(100);
+		systick_delayMs(250);
+		led_toogle(LED_RED);
 	}
 
 	return 0;
