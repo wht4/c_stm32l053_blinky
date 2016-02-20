@@ -43,16 +43,18 @@ BtnCallback (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx);
  ******************************************************************************/
 int main(void) {
 
-	hw_init();
-	btn_registerCallback(BTN_1, BTN_HANDLING_CTX_ISR, BtnCallback);
+    hw_init();
+    btn_registerCallback(BTN_1, BTN_HANDLING_CTX_ISR, BtnCallback);
 
-	while (1) {
+    while (1) {
 
-		systick_delayMs(250);
-		led_toogle(LED_RED);
-	}
+        led_set(LED_RED);
+        systick_delayMs(50);
+        led_clear(LED_RED);
+        systick_delayMs(450);
+    }
 
-	return 0;
+    return 0;
 }
 
 
@@ -62,8 +64,8 @@ int main(void) {
 static void
 BtnCallback (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx) {
 
-	(void) tBtn;
-	(void) tBtnHandlingCtx;
+    (void) tBtn;
+    (void) tBtnHandlingCtx;
 
-	led_toogle(LED_GREEN);
+    led_toogle(LED_GREEN);
 }

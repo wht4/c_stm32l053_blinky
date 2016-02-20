@@ -33,13 +33,13 @@
 
 /****** Data types ************************************************************/
 GPIO_TypeDef * tUserLedPort[LED_QUANTITY] = {
-		GPIOB,
-		GPIOA
+    GPIOB,
+    GPIOA
 };
 
 uint32_t u32UserLedPin[LED_QUANTITY] = {
-		4,
-		5
+    4,
+    5
 };
 
 /****** Function prototypes ****************************************************/
@@ -54,19 +54,20 @@ uint32_t u32UserLedPin[LED_QUANTITY] = {
 void
 led_init(void) {
 
-	GpioInit_t tGpioInit = {GPIO_MODE_OUTPUT,
-				GPIO_OUTPUT_PUSH_PULL,
-				GPIO_SPEED_MEDIUM,
-				GPIO_PULL_NON};
+    GpioInit_t tGpioInit = {GPIO_MODE_OUTPUT,
+                            GPIO_OUTPUT_PUSH_PULL,
+                            GPIO_SPEED_MEDIUM,
+                            GPIO_PULL_NON
+                           };
 
     /* Enable the peripheral clock of GPIOA and GPIOB */
-	RCC->IOPENR |= RCC_IOPENR_GPIOAEN | RCC_IOPENR_GPIOBEN;
+    RCC->IOPENR |= RCC_IOPENR_GPIOAEN | RCC_IOPENR_GPIOBEN;
 
-	/* Select output mode (01) on GPIOA pin 5 */
-	gpio_init(GPIOA, 5, &tGpioInit);
+    /* Select output mode (01) on GPIOA pin 5 */
+    gpio_init(GPIOA, 5, &tGpioInit);
 
-	/* Select output mode (01) on GPIOB pin 4 */
-	gpio_init(GPIOB, 4, &tGpioInit);
+    /* Select output mode (01) on GPIOB pin 4 */
+    gpio_init(GPIOB, 4, &tGpioInit);
 }
 
 
@@ -76,9 +77,9 @@ led_init(void) {
 void
 led_set(Led_t tLed) {
 
-	if (tLed < LED_QUANTITY) {
-		tUserLedPort[tLed]->BSRR |= (0x01UL << u32UserLedPin[tLed]);
-	}
+    if (tLed < LED_QUANTITY) {
+        gpio_set(tUserLedPort[tLed], u32UserLedPin[tLed]);
+    }
 }
 
 
@@ -88,9 +89,9 @@ led_set(Led_t tLed) {
 void
 led_clear(Led_t tLed) {
 
-	if (tLed < LED_QUANTITY) {
-		tUserLedPort[tLed]->BSRR |= (0x10000UL << u32UserLedPin[tLed]);
-	}
+    if (tLed < LED_QUANTITY) {
+        gpio_clear(tUserLedPort[tLed], u32UserLedPin[tLed]);
+    }
 }
 
 
@@ -100,7 +101,7 @@ led_clear(Led_t tLed) {
 void
 led_toogle(Led_t tLed) {
 
-	if (tLed < LED_QUANTITY) {
-		tUserLedPort[tLed]->ODR ^= (1UL << u32UserLedPin[tLed]);
-	}
+    if (tLed < LED_QUANTITY) {
+        gpio_toogle(tUserLedPort[tLed], u32UserLedPin[tLed]);
+    }
 }

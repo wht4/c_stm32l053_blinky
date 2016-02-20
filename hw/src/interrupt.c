@@ -45,7 +45,7 @@
 void
 SysTick_Handler(void) {
 
-	systick_irq();
+    systick_irq();
 }
 
 
@@ -55,12 +55,12 @@ SysTick_Handler(void) {
 void
 EXTI0_1_IRQHandler(void) {
 
-	/* Is there an interrupt on line 0 */
-	if((EXTI->PR & EXTI_PR_PR0) != 0) {
+    /* Is there an interrupt on line 0 */
+    if((EXTI->PR & EXTI_PR_PR0) != 0) {
 
-		EXTI->PR |= EXTI_PR_PR0;
-		btn_isr(BTN_1);
-	}
+        EXTI->PR |= EXTI_PR_PR0;
+        btn_isr(BTN_1);
+    }
 }
 
 
@@ -70,7 +70,7 @@ EXTI0_1_IRQHandler(void) {
 void
 NMI_Handler(void) {
 
-	/* Default handler */
+    /* Default handler */
 }
 
 
@@ -80,9 +80,9 @@ NMI_Handler(void) {
 void
 HardFault_Handler(void) {
 
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1) {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while (1) {
+    }
 }
 
 
@@ -92,7 +92,7 @@ HardFault_Handler(void) {
 void
 SVC_Handler(void) {
 
-	/* Default handler */
+    /* Default handler */
 }
 
 
@@ -102,6 +102,6 @@ SVC_Handler(void) {
 void
 PendSV_Handler(void) {
 
-	/* Default handler */
+    /* Default handler */
 }
 

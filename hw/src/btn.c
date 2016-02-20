@@ -46,15 +46,15 @@
 
 /****** Data ******************************************************************/
 static pfBtnHandlingFct pfHandlingFct[BTN_QUANTITY] = {
-		NULL
+    NULL
 };
 
 static volatile bool bIsrFlag[BTN_QUANTITY] = {
-		false
+    false
 };
 
 static BtnHandlingCtx_t tHandlingCtx[BTN_QUANTITY] = {
-		BTN_HANDLING_CTX_INVALID
+    BTN_HANDLING_CTX_INVALID
 };
 
 /****** Implementation ********************************************************/
@@ -65,29 +65,28 @@ static BtnHandlingCtx_t tHandlingCtx[BTN_QUANTITY] = {
 void
 btn_init(void) {
 
-	GpioInit_t tGpioInit = {GPIO_MODE_INPUT,
-			GPIO_OUTPUT_PUSH_PULL,
-			GPIO_SPEED_MEDIUM,
-			GPIO_PULL_NON};
+    GpioInit_t tGpioInit = {GPIO_MODE_INPUT,
+                            GPIO_OUTPUT_PUSH_PULL,
+                            GPIO_SPEED_MEDIUM,
+                            GPIO_PULL_NON
+                           };
 
-	/* Enable the peripheral clock of GPIOA */
-	RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
+    /* Enable the peripheral clock of GPIOA */
+    RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
 
-	/* configure GPIOA pin 0 as btn */
-	//GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODE0));
-	gpio_init(GPIOA, 0, &tGpioInit);
+    /* configure GPIOA pin 0 as btn */
+    gpio_init(GPIOA, 0, &tGpioInit);
 
+    /* Line 0 is not masked */
+    EXTI->IMR |= EXTI_IMR_IM0;
 
-	/* Line 0 is not masked */
-	EXTI->IMR |= EXTI_IMR_IM0;
+    /* Set interrupt for rising edge */
+    EXTI->RTSR |= EXTI_RTSR_TR0;
 
-	/* Set interrupt for rising edge */
-	EXTI->RTSR |= EXTI_RTSR_TR0;
+    /* Enable interrupt for EXTI Line 0 and 1 */
+    NVIC_EnableIRQ(EXTI0_1_IRQn);
 
-	/* Enable interrupt for EXTI Line 0 and 1 */
-	NVIC_EnableIRQ(EXTI0_1_IRQn);
-
-	NVIC_SetPriority(EXTI0_1_IRQn, (1<<__NVIC_PRIO_BITS) - 1);
+    NVIC_SetPriority(EXTI0_1_IRQn, (1<<__NVIC_PRIO_BITS) - 1);
 }
 
 
@@ -96,15 +95,15 @@ btn_init(void) {
  ******************************************************************************/
 void
 btn_registerCallback(Btn_t tBtn,
-		             BtnHandlingCtx_t tBtnHandlingCtx,
-		             pfBtnHandlingFct pfCallback) {
+                     BtnHandlingCtx_t tBtnHandlingCtx,
+                     pfBtnHandlingFct pfCallback) {
 
-	assert(pfCallback != NULL);
-	assert(tBtnHandlingCtx < BTN_HANDLING_CTX_INVALID);
-	assert(tBtn < BTN_QUANTITY);
+    assert(pfCallback != NULL);
+    assert(tBtnHandlingCtx < BTN_HANDLING_CTX_INVALID);
+    assert(tBtn < BTN_QUANTITY);
 
-	tHandlingCtx[tBtn] = tBtnHandlingCtx;
-	pfHandlingFct[tBtn] = pfCallback;
+    tHandlingCtx[tBtn] = tBtnHandlingCtx;
+    pfHandlingFct[tBtn] = pfCallback;
 }
 
 /*******************************************************************************
@@ -113,15 +112,15 @@ btn_registerCallback(Btn_t tBtn,
 void
 btn_isPressed(Btn_t tBtn) {
 
-	assert(tBtn < BTN_QUANTITY);
+    assert(tBtn < BTN_QUANTITY);
 
-	if ((bIsrFlag[tBtn] == true) &&
-			(tHandlingCtx[tBtn] == BTN_HANDLING_CTX_BACKGROUND) &&
-			(pfHandlingFct[tBtn] != NULL)) {
+    if ((bIsrFlag[tBtn] == true) &&
+            (tHandlingCtx[tBtn] == BTN_HANDLING_CTX_BACKGROUND) &&
+            (pfHandlingFct[tBtn] != NULL)) {
 
-		pfHandlingFct[tBtn](tBtn, tHandlingCtx[tBtn]);
-		bIsrFlag[tBtn] = false;
-	}
+        pfHandlingFct[tBtn](tBtn, tHandlingCtx[tBtn]);
+        bIsrFlag[tBtn] = false;
+    }
 }
 
 /*******************************************************************************
@@ -130,14 +129,14 @@ btn_isPressed(Btn_t tBtn) {
 void
 btn_isr(Btn_t tBtn) {
 
-	if ((tHandlingCtx[tBtn] == BTN_HANDLING_CTX_ISR) &&
-			(pfHandlingFct[tBtn] != NULL)) {
+    if ((tHandlingCtx[tBtn] == BTN_HANDLING_CTX_ISR) &&
+            (pfHandlingFct[tBtn] != NULL)) {
 
-		pfHandlingFct[tBtn](tBtn, tHandlingCtx[tBtn]);
+        pfHandlingFct[tBtn](tBtn, tHandlingCtx[tBtn]);
 
-	} else if(tHandlingCtx[tBtn] == BTN_HANDLING_CTX_BACKGROUND) {
+    } else if(tHandlingCtx[tBtn] == BTN_HANDLING_CTX_BACKGROUND) {
 
-		bIsrFlag[tBtn] = true;
-	}
+        bIsrFlag[tBtn] = true;
+    }
 }
 

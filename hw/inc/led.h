@@ -35,11 +35,12 @@ extern "C" {
 /****** Data types ************************************************************/
 typedef enum _Led_t {
 
-	LED_GREEN    = 0,
-	LED_RED      = 1,
-	LED_QUANTITY = 2
+    LED_GREEN    = 0,
+    LED_RED      = 1,
+    LED_QUANTITY = 2
 
-}Led_t;
+}
+Led_t;
 
 /****** Function prototypes ****************************************************/
 extern void

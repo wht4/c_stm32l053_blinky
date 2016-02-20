@@ -8,8 +8,6 @@
  *
  *  @author     wht4
  *
- *  @todo		Go to sleep mode within busy loop
- *
  *  @remark     Last modifications
  *                 \li V1.0, February 2016, wht4, initial release
  *
@@ -46,7 +44,7 @@ static volatile uint32_t u32Tick = 0;
 void
 systick_init(uint32_t u32Ticks) {
 
-	SysTick_Config(u32Ticks);
+    SysTick_Config(u32Ticks);
 }
 
 
@@ -56,10 +54,10 @@ systick_init(uint32_t u32Ticks) {
 void
 systick_delayMs(uint32_t u32DelayMs) {
 
-	uint32_t u32StartTick = u32Tick;
-	while((u32DelayMs + u32StartTick) > u32Tick) {
-
-	}
+    uint32_t u32StartTick = u32Tick;
+    while((u32DelayMs + u32StartTick) > u32Tick) {
+        // TODO Go to sleep mode within busy loop
+    }
 }
 
 
@@ -69,6 +67,6 @@ systick_delayMs(uint32_t u32DelayMs) {
 void
 systick_irq(void) {
 
-	u32Tick++;
+    u32Tick++;
 }
 

@@ -38,19 +38,20 @@ extern "C" {
 /****** Data types ************************************************************/
 typedef enum _Btn_t {
 
-	BTN_1        = 0,
-	BTN_QUANTITY = 1
+    BTN_1        = 0,
+    BTN_QUANTITY = 1
 
-} Btn_t;
+}
+Btn_t;
 
 
 typedef enum _BtnHandlingCtx_t {
 
-	BTN_HANDLING_CTX_ISR        = 0,
-	BTN_HANDLING_CTX_BACKGROUND = 1,
-	BTN_HANDLING_CTX_INVALID    = 2
+    BTN_HANDLING_CTX_ISR        = 0,
+    BTN_HANDLING_CTX_BACKGROUND = 1,
+    BTN_HANDLING_CTX_INVALID    = 2
 
-}BtnHandlingCtx_t;
+} BtnHandlingCtx_t;
 
 typedef void (*pfBtnHandlingFct) (Btn_t tBtn, BtnHandlingCtx_t tBtnHandlingCtx);
 
@@ -60,8 +61,8 @@ btn_init(void);
 
 extern void
 btn_registerCallback(Btn_t tBtn,
-		             BtnHandlingCtx_t tBtnHandlingCtx,
-		             pfBtnHandlingFct pfCallback);
+                     BtnHandlingCtx_t tBtnHandlingCtx,
+                     pfBtnHandlingFct pfCallback);
 
 
 extern void
