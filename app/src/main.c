@@ -49,9 +49,9 @@ int main(void) {
     while (1) {
 
         led_set(LED_RED);
-        systick_delayMs(50);
+        systick_delayMs(1000);
         led_clear(LED_RED);
-        systick_delayMs(450);
+        systick_delayMs(1000);
     }
 
     return 0;
