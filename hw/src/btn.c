@@ -22,7 +22,10 @@
  ******************************************************************************/
 /*
  *  functions  global:
- *              .
+ *              btn_init
+ *              btn_registerCallback
+ *              btn_isPressed
+ *              btn_isr
  *  functions  local:
  *              .
  *
@@ -35,6 +38,7 @@
 #include <assert.h>
 #include "stm32l0xx.h"
 
+#include "config.h"
 #include "btn.h"
 #include "gpio.h"
 
@@ -86,7 +90,7 @@ btn_init(void) {
     /* Enable interrupt for EXTI Line 0 and 1 */
     NVIC_EnableIRQ(EXTI0_1_IRQn);
 
-    NVIC_SetPriority(EXTI0_1_IRQn, (1<<__NVIC_PRIO_BITS) - 1);
+    NVIC_SetPriority(EXTI0_1_IRQn, CONFIG_BTN_ISR_PRIO);
 }
 
 

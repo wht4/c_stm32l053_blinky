@@ -21,6 +21,7 @@
 /****** Header-Files **********************************************************/
 #include "stm32l0xx.h"
 
+#include "config.h"
 #include "led.h"
 #include "systick.h"
 #include "btn.h"
@@ -43,8 +44,11 @@ hw_initSysclock(void);
 void
 hw_init(void) {
 
-	hw_initSysclock();
-    systick_init(16000);
+	#if CONFIG_SYSCLOCK == CONFIG_SYSCLOCK_16MHZ
+		hw_initSysclock();
+	#endif
+	systick_init(CONFIG_SYSTICK_1MS);
+
 
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 

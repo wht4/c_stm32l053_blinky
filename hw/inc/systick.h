@@ -14,6 +14,7 @@
 /*
  *  function    systick_init
  *              systick_delayMs
+ *              systick_getTick
  *              systick_irq
  *
  ******************************************************************************/
@@ -35,6 +36,9 @@ systick_init(uint32_t u32Ticks);
 
 extern void
 systick_delayMs(uint32_t u32DelayMs);
+
+extern uint32_t
+systick_getTick(void);
 
 extern void
 systick_irq(void);

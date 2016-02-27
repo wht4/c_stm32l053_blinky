@@ -16,6 +16,7 @@
  *  functions  global:
  *              systick_init
  *              systick_delayMs
+ *              systick_getTick
  *              systick_irq
  *  functions  local:
  *              .
@@ -58,6 +59,15 @@ systick_delayMs(uint32_t u32DelayMs) {
     while((u32DelayMs + u32StartTick) > u32Tick) {
         // TODO Go to sleep mode within busy loop
     }
+}
+
+
+/*******************************************************************************
+ *  function :    systick_getTick
+ ******************************************************************************/
+uint32_t
+systick_getTick(void) {
+	return (u32Tick);
 }
 
 

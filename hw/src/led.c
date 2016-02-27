@@ -19,7 +19,9 @@
 /*
  *  functions  global:
  *              led_init
- *              led_green_toogle
+ *              led_set
+ *              led_clear
+ *              led_toogle
  *  functions  local:
  *              .
  *
